@@ -2,7 +2,7 @@ name: schedule
 
 on:
   schedule:
-    - cron: '*/15 * * * *' # รันทุก 15 นาท
+    - cron: '0 6 * * *' # รันทุก 06:00 น.
 
 jobs:
   push_to_registry:
