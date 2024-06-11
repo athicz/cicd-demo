@@ -44,7 +44,6 @@ jobs:
        NEW_BRANCH_NAME="log-$(echo "$COMMIT_MESSAGE" | tr '[:upper:]' '[:lower:]' | tr '[:space:]' '-' | tr '[:punct:]' '-')"
        EXISTED_IN_REMOTE=$(git ls-remote --heads origin ${NEW_BRANCH_NAME})
        if [[ -z ${EXISTED_IN_REMOTE} ]]; then
-        git checkout -b $NEW_BRANCH_NAME
         git push 
        else
         git checkout -b $NEW_BRANCH_NAME
