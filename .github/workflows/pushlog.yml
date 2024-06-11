@@ -42,8 +42,9 @@ jobs:
        git config user.email athichai.lim@gmail.com
        COMMIT_MESSAGE=$(git log -1 --pretty=%B)
        NEW_BRANCH_NAME="log-$(echo "$COMMIT_MESSAGE" | tr '[:upper:]' '[:lower:]' | tr '[:space:]' '-' | tr '[:punct:]' '-')"
-       local existed_in_remote=$(git ls-remote --heads origin ${NEW_BRANCH_NAME})
-       if [[ -z ${existed_in_remote} ]]; then
+       EXISTED_IN_REMOTE=$(git ls-remote --heads origin ${NEW_BRANCH_NAME})
+       if [[ -z ${EXISTED_IN_REMOTE} ]]; then
+        git checkout -b $NEW_BRANCH_NAME
         git push
        else
         git checkout -b $NEW_BRANCH_NAME
