@@ -42,13 +42,17 @@ jobs:
        git config user.email athichai.lim@gmail.com
        COMMIT_MESSAGE=$(git log -1 --pretty=%B)
        NEW_BRANCH_NAME="log-$(echo "$COMMIT_MESSAGE" | tr '[:upper:]' '[:lower:]' | tr '[:space:]' '-' | tr '[:punct:]' '-')"
-       EXISTED_IN_REMOTE=$(git ls-remote --heads origin ${NEW_BRANCH_NAME})
-       if [[ -z ${EXISTED_IN_REMOTE} ]]; then
-        git checkout -b $NEW_BRANCH_NAME
-        git push https://x-access-token:${GH_PAT}@github.com/${{ github.repository }}.git $NEW_BRANCH_NAME
+       # git checkout -b $NEW_BRANCH_NAME
+       # git push https://x-access-token:${GH_PAT}@github.com/${{ github.repository }}.git $NEW_BRANCH_NAME
+       
+       # Check if the branch already exists
+       BRANCH_EXISTS=$(git ls-remote --heads https://x-access-token:${GH_PAT}@github.com/${{ github.repository }}.git $NEW_BRANCH_NAME | wc -l)
+    
+       # Create and push the new branch only if it doesn't exist
+       if [ "$BRANCH_EXISTS" -eq 0 ]; then
+         git checkout -b $NEW_BRANCH_NAME
+         git push https://x-access-token:${GH_PAT}@github.com/${{ github.repository }}.git $NEW_BRANCH_NAME
        else
-        git fetch
-        git checkout -b $NEW_BRANCH_NAME
-        git pull
-        git push --set-upstream origin $NEW_BRANCH_NAME
+         echo "Branch $NEW_BRANCH_NAME already exists. Skipping branch creation."
        fi
+
