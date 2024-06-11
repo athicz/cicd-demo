@@ -48,5 +48,5 @@ jobs:
         git push https://x-access-token:${GH_PAT}@github.com/${{ github.repository }}.git $NEW_BRANCH_NAME
        else
         git checkout -b $NEW_BRANCH_NAME
-        git push 
+        git push --set-upstream origin $NEW_BRANCH_NAME
        fi
