@@ -45,7 +45,7 @@ jobs:
        EXISTED_IN_REMOTE=$(git ls-remote --heads origin ${NEW_BRANCH_NAME})
        if [[ -z ${EXISTED_IN_REMOTE} ]]; then
         git checkout -b $NEW_BRANCH_NAME
-        git push
+        git push 
        else
         git checkout -b $NEW_BRANCH_NAME
         git push https://x-access-token:${GH_PAT}@github.com/${{ github.repository }}.git $NEW_BRANCH_NAME
