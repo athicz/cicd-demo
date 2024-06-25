@@ -3,7 +3,7 @@ name: commitlog
 on:
   push:
     branches:
-      - main
+      - ['main']
 
 jobs:
   lint:
